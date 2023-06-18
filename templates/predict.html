@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CottonNET - Predict</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+
+    #selected-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .custom-file-button input[type=file] {
+      margin-left: -2px !important;
+    }
+
+    .custom-file-button input[type=file]::-webkit-file-upload-button {
+      display: none;
+    }
+
+    .custom-file-button input[type=file]::file-selector-button {
+      display: none;
+    }
+
+    .custom-file-button:hover label {
+      background-color: #dde0e3;
+      cursor: pointer;
+    }
+
+    #selected-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 70px; /* Updated value: 70px */
+    }
+
+    .predict-button {
+        padding-left: 2px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" href="#">CottonNET</a>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('predict') }}">Predict<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h1>Predict Cotton Plant</h1>
+        <form action="{{ url_for('predict') }}" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="image-upload">Select an Image:</label>
+            <div class="custom-file-button">
+              <label class="input-group-text" for="image-upload">Your Custom Text</label>
+              <input type="file" class="form-control" name="file" id="image-upload" accept=".png, .jpg, .jpeg">
+            </div>
+            <br>
+            <div class="predict-button">
+              <button type="submit" class="btn btn-success btn-lg btn-block">Predict</button>
+            </div>
+          </div>
+        </form>
+        {% if prediction != '' %}
+        {% if prediction == 0 %}
+        <div class="alert alert-warning" role="alert">
+          This is a Diseased Cotton Leaf!!!
+        </div>
+        {% endif %}
+        {% if prediction == 1 %}
+          <div class="alert alert-danger" role="alert">
+            This is a Diseased Cotton Plant!!!
+          </div>
+        {% endif %}
+        {% if prediction == 2 %}'
+          <div class="alert alert-primary" role="alert">
+            This is a Fresh Cotton Leaf!!
+          </div>
+        {% endif %}
+        {% if prediction == 3 %}
+          <div class="alert alert-success" role="alert">
+            This is a Fresh Cotton Plant!!
+          </div>
+        {% endif %}
+      {% endif %}
+      </div>
+      <div class="col-lg-6">
+        <div id="selected-image"></div>
+        <div id="prediction-output"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+    // Handle image upload and display
+    const imageUploadInput = document.getElementById("image-upload");
+    const selectedImageContainer = document.getElementById("selected-image");
+    const predictionOutputContainer = document.getElementById("prediction-output");
+
+    imageUploadInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        selectedImageContainer.innerHTML = `<img src="${e.target.result}" alt="Selected Image" class="img-fluid">`;
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    // Display image and prediction alerts on form submission
+    const form = document.getElementById("predict-form");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        predictionOutputContainer.innerHTML = data.prediction;
+      })
+      .catch(error => console.log(error));
+    });
+  </script>
+
+</body>
+
+</html>

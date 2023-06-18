@@ -1,0 +1,33 @@
+/* Custom CSS */
+
+.container {
+  margin-top: 200px;
+}
+
+h1 {
+  font-size: 200px;
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+#about {
+  margin-top: 200px;
+}
+
+.jumbotron {
+    margin-top: 200px;
+}
+  
+  
+.btn-primary {
+  display: block;
+  margin: 0 auto;
+}
+
+.img-fluid {
+  float: right;
+  margin-right: 0;
+}
