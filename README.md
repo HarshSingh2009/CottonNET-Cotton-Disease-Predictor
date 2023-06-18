@@ -1,9 +1,8 @@
 # CottonNET : Cotton Disease Prediction using CNN
-### CottonNet is a Convolutional Neural Network (CNN) model designed for predicting cotton diseases and classifying cotton plants into four categories: diseased cotton leaf, diseased cotton plant, fresh cotton leaf, and fresh cotton plant.
+#### CottonNet is a Convolutional Neural Network (CNN) model designed for predicting cotton diseases and classifying cotton plants into four categories: diseased cotton leaf, diseased cotton plant, fresh cotton leaf, and fresh cotton plant.
 
-### The goal of CottonNet is to aid in the early detection and diagnosis of cotton diseases, which can help farmers take appropriate measures to prevent the spread of diseases and ensure better crop management. By analyzing images of cotton plants, the model can identify whether the plant or its leaves are healthy or diseased.
+#### The goal of CottonNet is to aid in the early detection and diagnosis of cotton diseases, which can help farmers take appropriate measures to prevent the spread of diseases and ensure better crop management. By analyzing images of cotton plants, the model can identify whether the plant or its leaves are healthy or diseased.
 
-## [Link for App]()
 
 ## Software requirements and tools
 1. [Anaconda](https://www.anaconda.com/download/)
